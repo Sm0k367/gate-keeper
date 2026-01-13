@@ -1,113 +1,150 @@
-/* --- AI LOUNGE AFTER DARK: ULTRA-LEGIBILITY --- */
+/* --- AI LOUNGE AFTER DARK // CINEMATIC INTERFACE --- */
 :root {
     --neon-gold: #ffcc00;
     --digital-cyan: #00f2ff;
-    --bg-dark: #000000;
+    --bright-white: #ffffff;
+    --bg-black: #050505;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Orbitron:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Orbitron:wght@400;900&family=Share+Tech+Mono&display=swap');
 
 body, html {
     margin: 0; padding: 0;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-black);
     color: white;
-    font-family: 'Syncopate', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     overflow: hidden;
     height: 100vh;
 }
 
-/* OVERLAY GATEKEEPER */
+/* --- BOOT SYSTEM OVERLAY --- */
 #overlay {
     position: fixed;
     inset: 0;
-    background: black;
+    background: radial-gradient(circle at center, #111, #000);
     z-index: 2000;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+}
+
+.scan-line {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: rgba(0, 242, 255, 0.2);
+    box-shadow: 0 0 10px var(--digital-cyan);
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% { top: 0%; }
+    100% { top: 100%; }
+}
+
+.main-brand {
+    font-size: clamp(2rem, 8vw, 5rem);
+    letter-spacing: 10px;
+    color: var(--neon-gold);
+    text-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
+    margin-bottom: 0;
+}
+
+.terminal-loader {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--digital-cyan);
+    font-size: 0.9rem;
+    margin: 20px 0;
+    opacity: 0.8;
 }
 
 #initialize-btn {
-    padding: 20px 50px;
+    padding: 15px 40px;
     background: transparent;
-    border: 3px solid var(--neon-gold);
+    border: 2px solid var(--neon-gold);
     color: var(--neon-gold);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: 5px;
+    font-weight: 900;
+    letter-spacing: 3px;
     cursor: pointer;
-    text-shadow: 0 0 10px var(--neon-gold);
-    box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+    transition: 0.3s;
+    margin-top: 20px;
 }
 
-/* HUD */
+#initialize-btn:hover {
+    background: var(--neon-gold);
+    color: black;
+    box-shadow: 0 0 30px var(--neon-gold);
+}
+
+/* --- HUD & FRAMING --- */
 #hud {
     position: fixed;
     inset: 0;
-    padding: 25px;
     z-index: 500;
     pointer-events: none;
     opacity: 0;
-    font-family: 'Orbitron', sans-serif;
-    color: var(--digital-cyan);
+    padding: 40px;
+    transition: opacity 2s ease;
 }
 
-.corner-top-right { position: absolute; top: 25px; right: 25px; font-size: 1.2rem; }
-.corner-bottom-left { position: absolute; bottom: 25px; left: 25px; color: var(--neon-gold); }
+.hud-frame {
+    position: absolute;
+    width: 40px; height: 40px;
+    border: 2px solid var(--digital-cyan);
+}
+.top-left { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+.top-right { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+.bottom-left { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+.bottom-right { bottom: 20px; right: 20px; border-left: none; border-top: none; }
 
-/* LYRIC STAGE - MAXIMUM BRIGHTNESS */
+.corner-top-left, .corner-top-right, .corner-bottom-left, .corner-bottom-right {
+    position: absolute;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.corner-top-left { top: 40px; left: 40px; }
+.corner-top-right { top: 40px; right: 40px; text-align: right; }
+.corner-bottom-left { bottom: 40px; left: 40px; }
+.corner-bottom-right { bottom: 40px; right: 40px; text-align: right; }
+
+#timer { font-size: 1.5rem; color: var(--bright-white); }
+.label { color: rgba(255, 255, 255, 0.4); font-size: 0.6rem; }
+
+/* --- THE LYRICS (MAX CONTRAST) --- */
 #lyric-stage {
     position: absolute;
-    bottom: 18%;
-    left: 50%;
+    bottom: 18%; left: 50%;
     transform: translateX(-50%);
-    width: 95%;
+    width: 90%;
     text-align: center;
-    z-index: 10000; /* Ensure it stays above EVERYTHING */
-    pointer-events: none;
+    z-index: 1000;
 }
 
 #lyric-text {
-    font-size: clamp(1.8rem, 6vw, 4.5rem);
-    font-weight: 700;
-    
-    /* PURE BRIGHT WHITE */
-    color: #FFFFFF !important; 
-    
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    
-    /* HEAVY BLACK OUTLINE + NEON GLOW FOR DEPTH */
-    text-shadow: 
-        -3px -3px 0 #000,  
-         3px -3px 0 #000,
-        -3px  3px 0 #000,
-         3px  3px 0 #000,
-         0px 0px 30px rgba(0,0,0,1),
-         0px 0px 50px rgba(0,0,0,1);
-
-    /* SEMI-TRANSPARENT DARK BAND FOR TEXT READABILITY */
-    background: rgba(0, 0, 0, 0.65);
-    padding: 30px 60px;
-    border-radius: 8px;
+    font-family: 'Syncopate', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 4rem);
+    color: var(--bright-white);
+    background: rgba(0, 0, 0, 0.75);
+    padding: 25px 50px;
+    border-radius: 5px;
     display: inline-block;
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px); /* Blurs particles behind the text */
+    text-shadow: 2px 2px 0px #000, 0 0 20px rgba(0,0,0,1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-#canvas-3d {
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 1;
-}
+.blink { animation: blinker 1s linear infinite; color: #ff0000; }
+@keyframes blinker { 50% { opacity: 0; } }
 
-/* STABILIZED BEAT PULSE */
-.bass-hit {
-    animation: vibrate 0.1s linear;
-}
+#canvas-3d { position: fixed; top: 0; left: 0; z-index: 1; }
 
+/* --- BASS PULSE --- */
+.bass-hit { animation: vibrate 0.1s linear; }
 @keyframes vibrate {
     0% { transform: scale(1); }
-    50% { transform: scale(1.008); }
+    50% { transform: scale(1.005); filter: brightness(1.2); }
     100% { transform: scale(1); }
 }
