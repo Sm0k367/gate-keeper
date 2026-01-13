@@ -1,5 +1,5 @@
 /**
- * AI LOUNGE AFTER DARK // VIBRANT SIMULATION v2.0
+ * AI LOUNGE AFTER DARK // BEAT-SYNCED v3.0
  * Architect: DJ SMOKE STREAM
  */
 
@@ -7,11 +7,9 @@ let scene, camera, renderer, particleSystem, analyser, dataArray;
 const audio = document.getElementById('master-audio');
 const lyricText = document.getElementById('lyric-text');
 const timerDisplay = document.getElementById('timer');
-const fxDisplay = document.getElementById('fx-display');
 
-// THE PURE NARRATIVE TIMELINE (480s)
 const timeline = [
-    { time: 0, text: "Welcome to the AI Lounge." },
+    { time: 0, text: "Welcome to the Lounge." },
     { time: 4, text: "The clock has stopped at midnight." },
     { time: 8, text: "The simulation is breathing." },
     { time: 12, text: "You are now entering the AI Lounge After Dark." },
@@ -59,7 +57,7 @@ function initThree() {
     const colors = [];
     const colorOptions = [new THREE.Color(0xffcc00), new THREE.Color(0x00f2ff), new THREE.Color(0x9d00ff)];
 
-    for (let i = 0; i < 8000; i++) {
+    for (let i = 0; i < 9000; i++) {
         positions.push(Math.random() * 2000 - 1000, Math.random() * 2000 - 1000, Math.random() * 2000 - 1000);
         let clr = colorOptions[Math.floor(Math.random() * 3)];
         colors.push(clr.r, clr.g, clr.b);
@@ -68,11 +66,11 @@ function initThree() {
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
-    const material = new THREE.PointsMaterial({ size: 2, vertexColors: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+    const material = new THREE.PointsMaterial({ size: 2.5, vertexColors: true, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
     particleSystem = new THREE.Points(geometry, material);
     scene.add(particleSystem);
 
-    camera.position.z = 800;
+    camera.position.z = 900;
     animate();
 }
 
@@ -90,13 +88,22 @@ function animate() {
     requestAnimationFrame(animate);
     if (analyser) {
         analyser.getByteFrequencyData(dataArray);
-        let bass = dataArray[2];
-        particleSystem.rotation.y += 0.001 + (bass / 8000);
-        particleSystem.rotation.x += 0.0005;
+        let bass = dataArray[2]; 
         
-        // Vibration threshold
-        if (bass > 215) { document.body.classList.add('bass-hit'); } 
-        else { document.body.classList.remove('bass-hit'); }
+        // --- BEAT SYNCED ROTATION ---
+        // Base rotation is very slow (0.0005), Bass increases it
+        let rotationSpeed = 0.0005 + (bass / 5000);
+        particleSystem.rotation.y += rotationSpeed;
+        particleSystem.rotation.x += rotationSpeed / 2;
+        
+        // Push particles forward and back with the beat
+        particleSystem.position.z = bass / 5;
+
+        if (bass > 210) {
+            document.body.classList.add('bass-hit');
+        } else {
+            document.body.classList.remove('bass-hit');
+        }
     }
     updateLyrics();
     renderer.render(scene, camera);
@@ -112,7 +119,10 @@ function updateLyrics() {
         if (current >= timeline[i].time) {
             if (lyricText.innerText !== timeline[i].text) {
                 lyricText.innerText = timeline[i].text;
-                gsap.fromTo("#lyric-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.5 });
+                gsap.fromTo("#lyric-text", 
+                    { opacity: 0, filter: "blur(10px)" }, 
+                    { opacity: 1, filter: "blur(0px)", duration: 0.4 }
+                );
             }
             break;
         }
