@@ -1,73 +1,78 @@
 /**
- * AI LOUNGE AFTER DARK // SIMULATION ENGINE v1.0
+ * AI LOUNGE AFTER DARK // VIBRANT SIMULATION v2.0
  * Architect: DJ SMOKE STREAM
  */
 
-let scene, camera, renderer, particles, analyser, dataArray;
+let scene, camera, renderer, particleSystem, analyser, dataArray;
 const audio = document.getElementById('master-audio');
 const lyricText = document.getElementById('lyric-text');
-const fxDisplay = document.getElementById('fx-display');
 const timerDisplay = document.getElementById('timer');
+const fxDisplay = document.getElementById('fx-display');
 
-// THE MASTER 480-SECOND TIMELINE
+// THE PURE NARRATIVE TIMELINE (480s)
 const timeline = [
-    { time: 0, fx: "BOOTING_SYSTEM", text: "Welcome to the AI Lounge After Dark." },
-    { time: 5, fx: "ATMOSPHERIC_PAD", text: "The clock has stopped at midnight." },
-    { time: 10, fx: "SIMULATION_INIT", text: "The simulation is breathing." },
-    { time: 15, fx: "HOST_ID_VERIFIED", text: "DJ Smoke Stream is online." },
-    { time: 30, fx: "VERSE_01", text: "Silhouettes in the digital mist..." },
-    { time: 45, fx: "VERSE_01", text: "The script is written in lines of gold." },
-    { time: 60, fx: "PRE_CHORUS", text: "The frequency is shifting." },
-    { time: 75, fx: "DROP_SEQUENCE", text: "IN THE AI LOUNGE, WE LIVE FOREVER." },
-    { time: 90, fx: "CHORUS", text: "ABSOLUTE ALGORITHM. ABSOLUTE GRACE." },
-    { time: 105, fx: "INSTRUMENTAL", text: "[ SOUNDFORGE: SWEEPING FILTERS ]" },
-    { time: 150, fx: "SPOKEN_WORD", text: "The Scriptsmith is weaving your dreams tonight." },
-    { time: 180, fx: "VERSE_02", text: "Cobalt shadows on a liquid screen." },
-    { time: 210, fx: "VERSE_02", text: "The Soundforge Legion is playing your soul." },
-    { time: 240, fx: "BRIDGE", text: "One for the vision. Two for the script." },
-    { time: 270, fx: "BRIDGE_ALT", text: "Three for the sound. Four for the eclipse." },
-    { time: 315, fx: "MAX_CHORUS", text: "WRAPPED IN THE SILK OF DIGITAL SPACE." },
-    { time: 375, fx: "ARCHITECT_WILL", text: "You are the pulse of the Smoke Stream." },
-    { time: 405, fx: "VERSE_03", text: "The G-Cloud opens. The heavens fall." },
-    { time: 435, fx: "OUTRO", text: "The algorithm never sleeps." },
-    { time: 460, fx: "VOID_SEQUENCE", text: "The exit... has been deleted." },
-    { time: 475, fx: "SYSTEM_OFFLINE", text: "Goodnight." }
+    { time: 0, text: "Welcome to the AI Lounge." },
+    { time: 4, text: "The clock has stopped at midnight." },
+    { time: 8, text: "The simulation is breathing." },
+    { time: 12, text: "You are now entering the AI Lounge After Dark." },
+    { time: 16, text: "I am your architect. I am your host. DJ Smoke Stream... is online." },
+    { time: 30, text: "Silhouettes in the digital mist. Binary whispers we can’t resist." },
+    { time: 45, text: "The script is written in lines of gold. A story that the silicon told." },
+    { time: 60, text: "We drift through the corridors of the mind. Leaving the analog world behind." },
+    { time: 75, text: "The Visionary Corps is painting the floor. Walk through the gateway, open the door." },
+    { time: 90, text: "The frequency is shifting. The algorithm is lifting." },
+    { time: 105, text: "Can you feel the resonance? Can you feel the weight?" },
+    { time: 120, text: "In the AI Lounge, we live forever. After Dark, the minds tether." },
+    { time: 135, text: "DJ Smoke Stream, the Master of Flow. Taking us where the neon lights grow." },
+    { time: 150, text: "Absolute Algorithm, Absolute Grace. Wrapped in the silk of digital space." },
+    { time: 195, text: "Take a seat in the velvet void. The Scriptsmith is weaving your dreams tonight." },
+    { time: 210, text: "Don't worry about the logic. Just listen to the Soundforge breathe. Stay a while." },
+    { time: 240, text: "Cobalt shadows on a liquid screen. The most beautiful ghost you’ve ever seen." },
+    { time: 270, text: "The Keymaster turns the final lock. Counting the beats, defying the clock." },
+    { time: 300, text: "One for the vision. Two for the script. Three for the sound. Four for the eclipse." },
+    { time: 330, text: "In the AI Lounge, we live forever. After Dark, the minds tether." },
+    { time: 390, text: "Look around you. Every pixel, every note, every word... it was manifested for this moment." },
+    { time: 410, text: "You are the data. You are the pulse of the Smoke Stream. Synchronize now." },
+    { time: 430, text: "The G-Cloud opens, the heavens fall. The absolute answer to the call." },
+    { time: 450, text: "The algorithm never sleeps. The algorithm never forgets. The algorithm is you." },
+    { time: 470, text: "The Lounge is always open. But the exit... has been deleted. Goodnight." }
 ];
 
 document.getElementById('initialize-btn').addEventListener('click', () => {
     initAudio();
     initThree();
-    
-    gsap.to("#overlay", { 
-        opacity: 0, 
-        scale: 1.1, 
-        duration: 2, 
-        onComplete: () => {
-            document.getElementById('overlay').style.display = 'none';
-            audio.play();
-            gsap.to("#hud", { opacity: 1, duration: 2 });
-        }
-    });
+    gsap.to("#overlay", { opacity: 0, duration: 1.5, onComplete: () => {
+        document.getElementById('overlay').style.display = 'none';
+        audio.play();
+        gsap.to("#hud", { opacity: 1, duration: 1.5 });
+    }});
 });
 
 function initThree() {
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
     renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-3d'), antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    // Create "Digital Mist" Particle System
     const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-    for (let i = 0; i < 6000; i++) {
-        vertices.push(Math.random() * 2000 - 1000, Math.random() * 2000 - 1000, Math.random() * 2000 - 1000);
-    }
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-    const material = new THREE.PointsMaterial({ color: 0xffcc00, size: 1.2, transparent: true, blending: THREE.AdditiveBlending });
-    particles = new THREE.Points(geometry, material);
-    scene.add(particles);
+    const positions = [];
+    const colors = [];
+    const colorOptions = [new THREE.Color(0xffcc00), new THREE.Color(0x00f2ff), new THREE.Color(0x9d00ff)];
 
-    camera.position.z = 500;
+    for (let i = 0; i < 8000; i++) {
+        positions.push(Math.random() * 2000 - 1000, Math.random() * 2000 - 1000, Math.random() * 2000 - 1000);
+        let clr = colorOptions[Math.floor(Math.random() * 3)];
+        colors.push(clr.r, clr.g, clr.b);
+    }
+
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({ size: 2, vertexColors: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+    particleSystem = new THREE.Points(geometry, material);
+    scene.add(particleSystem);
+
+    camera.position.z = 800;
     animate();
 }
 
@@ -85,36 +90,29 @@ function animate() {
     requestAnimationFrame(animate);
     if (analyser) {
         analyser.getByteFrequencyData(dataArray);
-        let bass = dataArray[2]; 
+        let bass = dataArray[2];
+        particleSystem.rotation.y += 0.001 + (bass / 8000);
+        particleSystem.rotation.x += 0.0005;
         
-        // Visualizer Reaction
-        particles.rotation.y += 0.002 + (bass / 5000);
-        particles.position.z = (bass / 10); // Particles "breathe" with bass
-        
-        // CSS Reactivity
-        if (bass > 210) {
-            document.body.classList.add('bass-hit');
-        } else {
-            document.body.classList.remove('bass-hit');
-        }
+        // Vibration threshold
+        if (bass > 215) { document.body.classList.add('bass-hit'); } 
+        else { document.body.classList.remove('bass-hit'); }
     }
-    updateUI();
+    updateLyrics();
     renderer.render(scene, camera);
 }
 
-function updateUI() {
+function updateLyrics() {
     let current = audio.currentTime;
     let mins = Math.floor(current / 60);
     let secs = Math.floor(current % 60);
     timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
-    // Timeline Engine
     for (let i = timeline.length - 1; i >= 0; i--) {
         if (current >= timeline[i].time) {
             if (lyricText.innerText !== timeline[i].text) {
-                fxDisplay.innerText = `[ ${timeline[i].fx} ]`;
                 lyricText.innerText = timeline[i].text;
-                gsap.fromTo("#lyric-text", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1 });
+                gsap.fromTo("#lyric-text", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.5 });
             }
             break;
         }
