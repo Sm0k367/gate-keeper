@@ -1,4 +1,4 @@
-/* --- AI LOUNGE AFTER DARK: LEGIBILITY & BEAT-SYNC EDITION --- */
+/* --- AI LOUNGE AFTER DARK: ULTRA-LEGIBILITY --- */
 :root {
     --neon-gold: #ffcc00;
     --digital-cyan: #00f2ff;
@@ -52,36 +52,47 @@ body, html {
     color: var(--digital-cyan);
 }
 
-/* LYRIC STAGE - MAXIMUM CONTRAST */
+.corner-top-right { position: absolute; top: 25px; right: 25px; font-size: 1.2rem; }
+.corner-bottom-left { position: absolute; bottom: 25px; left: 25px; color: var(--neon-gold); }
+
+/* LYRIC STAGE - MAXIMUM BRIGHTNESS */
 #lyric-stage {
     position: absolute;
-    bottom: 20%;
+    bottom: 18%;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
+    width: 95%;
     text-align: center;
-    z-index: 1000;
+    z-index: 10000; /* Ensure it stays above EVERYTHING */
+    pointer-events: none;
 }
 
 #lyric-text {
-    font-size: clamp(1.5rem, 6vw, 4rem); /* Bigger and bolder */
+    font-size: clamp(1.8rem, 6vw, 4.5rem);
     font-weight: 700;
-    color: #FFFFFF;
+    
+    /* PURE BRIGHT WHITE */
+    color: #FFFFFF !important; 
+    
     text-transform: uppercase;
+    letter-spacing: 2px;
     
-    /* Triple-layer outline for guaranteed legibility */
+    /* HEAVY BLACK OUTLINE + NEON GLOW FOR DEPTH */
     text-shadow: 
-        -2px -2px 0 #000,  
-         2px -2px 0 #000,
-        -2px  2px 0 #000,
-         2px  2px 0 #000,
-         0 0 20px rgba(0,0,0,1),
-         0 0 40px rgba(0,0,0,1);
-    
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark box behind text */
-    padding: 20px 40px;
-    border-radius: 4px;
+        -3px -3px 0 #000,  
+         3px -3px 0 #000,
+        -3px  3px 0 #000,
+         3px  3px 0 #000,
+         0px 0px 30px rgba(0,0,0,1),
+         0px 0px 50px rgba(0,0,0,1);
+
+    /* SEMI-TRANSPARENT DARK BAND FOR TEXT READABILITY */
+    background: rgba(0, 0, 0, 0.65);
+    padding: 30px 60px;
+    border-radius: 8px;
     display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px); /* Blurs particles behind the text */
 }
 
 #canvas-3d {
@@ -90,13 +101,13 @@ body, html {
     z-index: 1;
 }
 
-/* SUBTLE BASS VIBRATION */
+/* STABILIZED BEAT PULSE */
 .bass-hit {
-    animation: pulse-view 0.1s ease-out;
+    animation: vibrate 0.1s linear;
 }
 
-@keyframes pulse-view {
+@keyframes vibrate {
     0% { transform: scale(1); }
-    50% { transform: scale(1.005); }
+    50% { transform: scale(1.008); }
     100% { transform: scale(1); }
 }
