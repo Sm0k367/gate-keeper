@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP OVERRIDE // AFTER DARK</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <div id="overlay">
+        <div class="glitch-container">
+            <h1 class="neon-title">DJ SMOKE STREAM</h1>
+            <h2 class="sub-title">VIP OVERRIDE // AFTER DARK</h2>
+            <p class="access-text">[ ACCESS: RESTRICTED ]</p>
+            <button id="initialize-btn">BYPASS SECURITY</button>
+        </div>
+    </div>
+
+    <div id="interface-hud">
+        <div class="top-bar">
+            <div class="status-box">SYSTEM: OVERRIDE_ACTIVE</div>
+            <div class="timer-box" id="global-timer">00:00:00</div>
+        </div>
+        
+        <div class="visualizer-labels">
+            <span>LOW_END</span>
+            <span>MID_RANGE</span>
+            <span>HIGH_FREQ</span>
+        </div>
+    </div>
+
+    <div id="lyric-container">
+        <div id="fx-tag" class="fx-label"></div>
+        <div id="lyric-text" class="main-lyrics"></div>
+    </div>
+
+    <canvas id="visualizer-canvas"></canvas>
+
+    <audio id="audio-engine" src="your-music-file.mp3"></audio>
+
+    <script src="main.js"></script>
+</body>
+</html>
