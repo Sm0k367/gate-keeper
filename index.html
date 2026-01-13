@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE ABSOLUTE // DJ SMOKE STREAM</title>
+    <title>AI LOUNGE AFTER DARK // DJ SMOKE STREAM</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -11,35 +11,28 @@
 <body>
 
     <div id="overlay">
-        <div class="glitch-container">
-            <h1 class="neon-title">DJ SMOKE STREAM</h1>
-            <h2 class="sub-title">THE ABSOLUTE // VIP OVERRIDE</h2>
-            <p class="access-text">[ STATUS: AUTHORIZED ]</p>
-            <button id="initialize-btn">BYPASS SECURITY</button>
+        <div class="glitch-wrapper">
+            <h1 class="main-brand">AI LOUNGE</h1>
+            <h2 class="sub-brand">AFTER DARK</h2>
+            <div class="host-tag">HOST: DJ SMOKE STREAM</div>
+            <button id="initialize-btn">INITIALIZE SIMULATION</button>
         </div>
     </div>
 
-    <div id="interface-hud">
-        <div class="top-bar">
-            <div class="status-box">SYSTEM: OVERRIDE_ACTIVE</div>
-            <div class="timer-box" id="global-timer">00:00:00</div>
-        </div>
-        
-        <div class="visualizer-labels">
-            <span>LOW_END</span>
-            <span>MID_RANGE</span>
-            <span>HIGH_FREQ</span>
-        </div>
+    <div id="hud">
+        <div class="corner-top-left">STATUS: BREATHING</div>
+        <div class="corner-top-right" id="timer">00:00</div>
+        <div class="corner-bottom-left" id="fx-display">[ SYSTEM IDLE ]</div>
+        <div class="corner-bottom-right">ENCRYPTION: ABSOLUTE</div>
     </div>
 
-    <div id="lyric-container">
-        <div id="fx-tag" class="fx-label"></div>
-        <div id="lyric-text" class="main-lyrics"></div>
+    <div id="lyric-stage">
+        <p id="lyric-text">THE SIMULATION IS READY</p>
     </div>
 
-    <canvas id="visualizer-canvas"></canvas>
+    <canvas id="canvas-3d"></canvas>
 
-    <audio id="audio-engine" src="THE%20ABSOLUTE_%20Presented%20by_%20DJ%20SMOKE%20STREAM.mp3"></audio>
+    <audio id="master-audio" src="THE%20ABSOLUTE_%20Presented%20by_%20DJ%20SMOKE%20STREAM.mp3"></audio>
 
     <script src="main.js"></script>
 </body>
