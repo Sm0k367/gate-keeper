@@ -12,21 +12,49 @@
 
     <div id="overlay">
         <div class="glitch-wrapper">
-            <h1 class="main-brand">AI LOUNGE AFTER DARK</h1>
-            <div class="host-tag">HOST: DJ SMOKE STREAM</div>
-            <button id="initialize-btn">HACK HERE</button>
+            <div class="scan-line"></div>
+            <h1 class="main-brand" data-text="AI LOUNGE">AI LOUNGE</h1>
+            <h2 class="sub-brand">AFTER DARK</h2>
+            <div class="host-tag">ARCHITECT: DJ SMOKE STREAM</div>
+            <div class="terminal-loader">
+                <p>> INITIALIZING VIRTUAL_VOID...</p>
+                <p>> LOADING SMOKE_STREAM_CORE...</p>
+                <p>> ACCESS: GRANTED</p>
+            </div>
+            <button id="initialize-btn">INITIALIZE SIMULATION</button>
         </div>
     </div>
 
     <div id="hud">
-        <div class="corner-top-left">STATUS: BREATHING</div>
-        <div class="corner-top-right" id="timer">00:00</div>
-        <div class="corner-bottom-left" id="fx-display">[ SYSTEM IDLE ]</div>
-        <div class="corner-bottom-right">ENCRYPTION: ABSOLUTE DJ SMOKE STREAM</div>
+        <div class="hud-frame top-left"></div>
+        <div class="hud-frame top-right"></div>
+        <div class="hud-frame bottom-left"></div>
+        <div class="hud-frame bottom-right"></div>
+
+        <div class="corner-top-left">
+            <span class="blink">●</span> SIGNAL: SECURE<br>
+            <span class="label">STREAM:</span> DJ_SMOKE_STREAM
+        </div>
+        
+        <div class="corner-top-right">
+            <div id="timer">00:00</div>
+            <span class="label">SYNC_RATE:</span> 99.9%
+        </div>
+
+        <div class="corner-bottom-left">
+            <div id="fx-display">[ STANDBY ]</div>
+            <span class="label">LOCATION:</span> VELVET_VOID_V5
+        </div>
+
+        <div class="corner-bottom-right">
+            ENCRYPTION: ABSOLUTE<br>
+            <span class="label">ID:</span> SM0K3_67
+        </div>
     </div>
 
     <div id="lyric-stage">
-        <p id="lyric-text">THE SIMULATION IS ALIVE</p>
+        <div id="lyric-glow"></div>
+        <p id="lyric-text">WAITING FOR INPUT...</p>
     </div>
 
     <canvas id="canvas-3d"></canvas>
